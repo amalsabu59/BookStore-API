@@ -1,20 +1,25 @@
 package config
 
 import (
+	"fmt"
+
 	"github.com/jinzhu/gorm"
-	// "github.com/jinzhu/gorm/dialects/mysql"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
 
 var (
-	db * gorm.DB
+	db *gorm.DB
 )
 
 func Connect() {
-d, err := gorm.Open("mysql","amal:amal@123/bookstore?charset=utf8&parseTime=true&loc=Local")
+	dsn := "user=username password=password dbname=database_name host=hostname port=port sslmode=mode"
+"
+	d, err := gorm.Open("postgres", dsn)
 if err != nil {
-	panic(err)
-}
-db = d
+		fmt.Printf("Failed to connect to database: %v\n", err)
+		return
+	}
+	db = d
 }
 
 func GetDB() *gorm.DB {
